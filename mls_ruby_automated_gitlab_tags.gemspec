@@ -9,15 +9,15 @@ Gem::Specification.new do |spec|
   spec.version     = MlsRubyAutomatedGitlabTags::VERSION
   spec.authors     = ["Dmytro Stepaniuk"]
   spec.email       = ["stepaniuk@mlsdev.com"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of MlsRubyAutomatedGitlabTags."
-  spec.description = "TODO: Description of MlsRubyAutomatedGitlabTags."
+  spec.homepage    = "https://mlsdev.com"
+  spec.summary     = "Summary of MlsRubyAutomatedGitlabTags."
+  spec.description = "Description of MlsRubyAutomatedGitlabTags."
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata["allowed_push_host"] = "'https://mlsdev.com'"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
