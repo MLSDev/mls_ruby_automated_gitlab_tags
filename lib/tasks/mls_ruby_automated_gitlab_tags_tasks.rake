@@ -40,10 +40,13 @@ namespace :mls_ruby_automated_gitlab_tags do
         puts 'ⓂⓁⓈ [🛠] :: Tags ✅'
       when Net::HTTPUnauthorized
         puts 'ⓂⓁⓈ [🛠] :: Net::HTTPUnauthorized 🚨 - have You missed CI_JOB_TOKEN configuration?'
+        exit 1
       when Net::HTTPServerError
         puts 'ⓂⓁⓈ [🛠] :: Net::HTTPServerError'
+        exit 1
       else
         puts "ⓂⓁⓈ [🛠] :: #{ response }"
+        exit 1
       end
 
       parsed_response = JSON.parse(response.body)
@@ -73,10 +76,13 @@ namespace :mls_ruby_automated_gitlab_tags do
         puts 'ⓂⓁⓈ [🛠] :: Compare ✅'
       when Net::HTTPUnauthorized
         puts 'ⓂⓁⓈ [🛠] :: Net::HTTPUnauthorized 🚨 - have You missed CI_JOB_TOKEN configuration?'
+        exit 1
       when Net::HTTPServerError
         puts 'ⓂⓁⓈ [🛠] :: Net::HTTPServerError'
+        exit 1
       else
         puts "ⓂⓁⓈ [🛠] :: #{ response }"
+        exit 1
       end
 
       parsed_response = JSON.parse(response.body)
@@ -107,10 +113,13 @@ namespace :mls_ruby_automated_gitlab_tags do
         puts 'ⓂⓁⓈ [🛠] :: Create tag ✅'
       when Net::HTTPUnauthorized
         puts 'ⓂⓁⓈ [🛠] :: Net::HTTPUnauthorized 🚨 - have You missed CI_JOB_TOKEN configuration?'
+        exit 1
       when Net::HTTPServerError
         puts 'ⓂⓁⓈ [🛠] :: Net::HTTPServerError'
+        exit 1
       else
         puts "ⓂⓁⓈ [🛠] :: #{ response }"
+        exit 1
       end
     rescue => e
       puts "An error happen while tagging. Plz double check if there was any misconfigurations."
