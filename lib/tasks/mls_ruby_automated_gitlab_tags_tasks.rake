@@ -17,7 +17,7 @@ namespace :mls_ruby_automated_gitlab_tags do
     require 'json'
 
     begin
-      puts "CI_JOB_TOKEN has #{ ENV['CI_JOB_TOKEN'].size } size"
+      puts "CI_JOB_TOKEN has #{ ENV['CI_JOB_TOKEN'].size } length"
 
       exit 1 if ENV['CI_JOB_TOKEN'].size.zero?
 
@@ -30,7 +30,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       headers = {
         'Accept':       'application/json',
         'Content-Type': 'application/json',
-        'PRIVATE-TOKEN': ENV['CI_JOB_TOKEN']
+        'PRIVATE-TOKEN': ENV['CI_JOB_TOKEN'].to_s
       }
 
       http = Net::HTTP.new(tags_uri.host, tags_uri.port)
@@ -98,7 +98,7 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       release_description = messages.join
 
-      puts "ⓂⓁⓈ [🛠] :: Release notes has #{ release_description.size } size"
+      puts "ⓂⓁⓈ [🛠] :: Release notes has #{ release_description.size } length"
 
       body = {
         tag_name:            Time.now.strftime("%Y__%m__%d__%H_%M"),
