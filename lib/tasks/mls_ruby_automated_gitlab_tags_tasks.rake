@@ -69,8 +69,9 @@ namespace :mls_ruby_automated_gitlab_tags do
       request = Net::HTTP::Post.new(tags_uri.request_uri, headers)
       request.body = body.to_json
       response = http.request(request)
-    rescue
+    rescue => e
       puts "An error happen while tagging. Plz double check if there was any misconfigurations."
+      puts e.message
     end
   end
 end
