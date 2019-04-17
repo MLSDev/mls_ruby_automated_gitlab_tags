@@ -17,7 +17,7 @@ namespace :mls_ruby_automated_gitlab_tags do
     require 'json'
 
     begin
-      puts "CI_JOB_TOKEN has #{ ENV['CI_JOB_TOKEN'].size } length"
+      puts "CI_JOB_TOKEN has length #{ ENV['CI_JOB_TOKEN'].size }"
 
       exit 1 if ENV['CI_JOB_TOKEN'].size.zero?
 
@@ -98,7 +98,7 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       release_description = messages.join
 
-      puts "ⓂⓁⓈ [🛠] :: Release notes has #{ release_description.size } length"
+      puts "ⓂⓁⓈ [🛠] :: Release notes has length #{ release_description.size }"
 
       body = {
         tag_name:            Time.now.strftime("%Y__%m__%d__%H_%M"),
