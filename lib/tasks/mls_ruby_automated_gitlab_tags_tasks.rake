@@ -17,6 +17,10 @@ namespace :mls_ruby_automated_gitlab_tags do
     require 'json'
 
     begin
+      puts "CI_JOB_TOKEN has #{ ENV['CI_JOB_TOKEN'].size } size"
+
+      exit 1 if ENV['CI_JOB_TOKEN'].size.zero?
+
       puts 'ⓂⓁⓈ [🛠] :: Getting last tag'
 
       tags_uri = URI.parse(
@@ -26,7 +30,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       headers = {
         'Accept':       'application/json',
         'Content-Type': 'application/json',
-        'PRIVATE-TOKEN': ARGV[1] #  ENV['CI_JOB_TOKEN']
+        'PRIVATE-TOKEN': ENV['CI_JOB_TOKEN']
       }
 
       http = Net::HTTP.new(tags_uri.host, tags_uri.port)
