@@ -33,7 +33,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       request = Net::HTTP::Get.new(tags_uri.request_uri, headers)
       response = http.request(request)
 
-      puts response
+      puts response.body
 
       parsed_response = JSON.parse(response.body)
 
