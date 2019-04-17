@@ -33,6 +33,8 @@ namespace :mls_ruby_automated_gitlab_tags do
       request = Net::HTTP::Get.new(tags_uri.request_uri, headers)
       response = http.request(request)
 
+      puts response
+
       parsed_response = JSON.parse(response.body)
 
       last_tag = parsed_response.first.try(:[], 'name')
@@ -49,6 +51,8 @@ namespace :mls_ruby_automated_gitlab_tags do
       request = Net::HTTP::Get.new(compare_uri.request_uri, headers)
       response = http.request(request)
 
+      puts response
+
       parsed_response = JSON.parse(response.body)
 
       # commits key - should be array of hashes
@@ -57,6 +61,8 @@ namespace :mls_ruby_automated_gitlab_tags do
       end
 
       release_description = messages.join
+
+      puts release_description
 
       body = {
         tag_name:            Time.now.strftime("%Y__%m__%d__%H_%M"),
@@ -69,6 +75,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       request = Net::HTTP::Post.new(tags_uri.request_uri, headers)
       request.body = body.to_json
       response = http.request(request)
+      puts response
     rescue => e
       puts "An error happen while tagging. Plz double check if there was any misconfigurations."
       puts e.message
