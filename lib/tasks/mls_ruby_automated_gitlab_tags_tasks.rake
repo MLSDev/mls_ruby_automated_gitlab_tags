@@ -1,36 +1,26 @@
 namespace :mls_ruby_automated_gitlab_tags do
   desc 'Tag the deployed revision'
 
-  #
-  # GITLAB__HOST
-  # GITLAB__PROJECT_ID
-  # GITLAB__PRJ_URL
-  #
   task :tag_revision do
-    next unless ENV['GITLAB__HOST']
-    next unless ENV['GITLAB__PROJECT_ID']
-    next unless ENV['GITLAB__PRJ_URL']
-    next unless ENV['CI_JOB_TOKEN']
+    next unless ENV['CI_PROJECT_ID']
+    next unless ENV['CI_PROJECT_URL']
+    # next unless ENV['CI_JOB_TOKEN']
 
     require 'net/https'
     require 'uri'
     require 'json'
 
     begin
-      puts "CI_JOB_TOKEN has length #{ ENV['CI_JOB_TOKEN'].size }"
-
-      exit 1 if ENV['CI_JOB_TOKEN'].size.zero?
-
       puts 'ⓂⓁⓈ [🛠] :: Getting last tag'
 
       tags_uri = URI.parse(
-        "https://#{ ENV['GITLAB__HOST'] }/api/v4/projects/#{ ENV['GITLAB__PROJECT_ID'] }/repository/tags"
+        "#{ ENV['CI_API_V4_URL'] }/projects/#{ ENV['CI_PROJECT_ID'] }/repository/tags"
       )
 
       headers = {
-        'Accept':       'application/json',
-        'Content-Type': 'application/json',
-        'PRIVATE-TOKEN': ENV['CI_JOB_TOKEN'].to_s
+        'Accept':        'application/json',
+        'Content-Type':  'application/json',
+        'PRIVATE-TOKEN': ENV['PRIVATE_TOKEN']
       }
 
       http = Net::HTTP.new(tags_uri.host, tags_uri.port)
@@ -43,7 +33,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       when Net::HTTPSuccess
         puts 'ⓂⓁⓈ [🛠] :: Tags ✅'
       when Net::HTTPUnauthorized
-        puts 'ⓂⓁⓈ [🛠] :: Net::HTTPUnauthorized 🚨 - have You missed CI_JOB_TOKEN configuration?'
+        puts 'ⓂⓁⓈ [🛠] :: Net::HTTPUnauthorized 🚨 - have You missed PRIVATE_TOKEN configuration?'
         exit 1
       when Net::HTTPServerError
         puts 'ⓂⓁⓈ [🛠] :: Net::HTTPServerError'
@@ -67,7 +57,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       end
 
       compare_uri = URI.parse(
-        "https://#{ ENV['GITLAB__HOST'] }/api/v4/projects/#{ ENV['GITLAB__PROJECT_ID'] }/repository/compare?from=#{ last_tag }&to=#{ branch_for_deploy }"
+        "#{ ENV['CI_API_V4_URL'] }/projects/#{ ENV['CI_PROJECT_ID'] }/repository/compare?from=#{ last_tag }&to=#{ branch_for_deploy }"
       )
 
       http = Net::HTTP.new(compare_uri.host, compare_uri.port).tap { |http| http.use_ssl = true }
@@ -79,7 +69,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       when Net::HTTPSuccess
         puts 'ⓂⓁⓈ [🛠] :: Compare ✅'
       when Net::HTTPUnauthorized
-        puts 'ⓂⓁⓈ [🛠] :: Net::HTTPUnauthorized 🚨 - have You missed CI_JOB_TOKEN configuration?'
+        puts 'ⓂⓁⓈ [🛠] :: Net::HTTPUnauthorized 🚨 - have You missed PRIVATE_TOKEN configuration?'
         exit 1
       when Net::HTTPServerError
         puts 'ⓂⓁⓈ [🛠] :: Net::HTTPServerError'
@@ -93,12 +83,22 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       # commits key - should be array of hashes
       messages =  parsed_response.fetch('commits', []).map do |commit|
-        "1. [[VIEW]](#{ ENV['GITLAB__PRJ_URL'] }/commit/#{ commit['id'] }) #{ commit['title'] } (#{ commit['author_name'] })\n"
+        "1. [[VIEW]](#{ ENV['CI_PROJECT_URL'] }/commit/#{ commit['id'] }) #{ commit['title'] } (#{ commit['author_name'] })\n"
       end
 
       release_description = messages.join
 
       puts "ⓂⓁⓈ [🛠] :: Release notes has length #{ release_description.size }"
+
+      uri = URI.parse(
+        "#{ ENV['CI_API_V4_URL'] }/projects/#{ ENV['CI_PROJECT_ID'] }/repository/tags"
+      )
+
+      headers = {
+        'Accept':       'application/json',
+        'Content-Type': 'application/json',
+        'PRIVATE-TOKEN': ENV['PRIVATE_TOKEN']
+      }
 
       body = {
         tag_name:            Time.now.strftime("%Y__%m__%d__%H_%M"),
@@ -107,8 +107,9 @@ namespace :mls_ruby_automated_gitlab_tags do
         release_description: release_description
       }
 
-      http = Net::HTTP.new(tags_uri.host, tags_uri.port).tap { |http| http.use_ssl = true }
-      request = Net::HTTP::Post.new(tags_uri.request_uri, headers)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      request = Net::HTTP::Post.new(uri.request_uri, headers)
       request.body = body.to_json
       response = http.request(request)
 
@@ -116,7 +117,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       when Net::HTTPSuccess
         puts 'ⓂⓁⓈ [🛠] :: Create tag ✅'
       when Net::HTTPUnauthorized
-        puts 'ⓂⓁⓈ [🛠] :: Net::HTTPUnauthorized 🚨 - have You missed CI_JOB_TOKEN configuration?'
+        puts 'ⓂⓁⓈ [🛠] :: Net::HTTPUnauthorized 🚨 - have You missed PRIVATE_TOKEN configuration?'
         exit 1
       when Net::HTTPServerError
         puts 'ⓂⓁⓈ [🛠] :: Net::HTTPServerError'
