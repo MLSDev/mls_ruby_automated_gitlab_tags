@@ -24,7 +24,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       headers = {
         'Accept':       'application/json',
         'Content-Type': 'application/json',
-        'PRIVATE-TOKEN': ENV['GITLAB__PRIVATE_TOKEN']
+        'PRIVATE-TOKEN': ENV['CI_JOB_TOKEN']
       }
 
       http = Net::HTTP.new(tags_uri.host, tags_uri.port)
