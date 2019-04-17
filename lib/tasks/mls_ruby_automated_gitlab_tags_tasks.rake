@@ -24,7 +24,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       headers = {
         'Accept':       'application/json',
         'Content-Type': 'application/json',
-        'PRIVATE-TOKEN': ENV['CI_JOB_TOKEN']
+        'PRIVATE-TOKEN': ENV['GITLAB__PRIVATE_TOKEN']
       }
 
       http = Net::HTTP.new(tags_uri.host, tags_uri.port)
@@ -34,6 +34,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       response = http.request(request)
 
       puts response.body
+      puts tags_uri
 
       parsed_response = JSON.parse(response.body)
 
