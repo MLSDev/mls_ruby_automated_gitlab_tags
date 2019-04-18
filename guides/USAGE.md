@@ -41,6 +41,14 @@ Or configure it as You even can imagine, just dont forget about `PRIVATE_TOKEN`.
 
 How to retrieve `Access Key` via `profile/personal_access_tokens` page in `GitLab`
 
+[personal_access_tokens]: ./personal_access_key_page.png "PersonalAccessKey"
+
+Or visit [the GitLab Documentation Page][gitlab_access_tokens_help]
+
+Also, You can find more details about [GitLab Environment Variables here][gitlab_env_variables_help]
+
 ![PersonalAccessKey][personal_access_tokens]
 
-[personal_access_tokens]: ./personal_access_key_page.png "PersonalAccessKey"
+[gitlab_access_tokens_help]: https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html "gitlab_access_tokens_help"
+
+[gitlab_env_variables_help]: https://git.mlsdev.com/help/ci/variables/README#variables "gitlab_env_variables_help"
