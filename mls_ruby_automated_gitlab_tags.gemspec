@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ["Dmytro Stepaniuk"]
   spec.email       = ["stepaniuk@mlsdev.com"]
   spec.homepage    = "https://mlsdev.com"
-  spec.summary     = "Summary of MlsRubyAutomatedGitlabTags."
-  spec.description = "Description of MlsRubyAutomatedGitlabTags."
+  spec.summary     = "Automated tags creation for GitLab"
+  spec.description = "Automated GitLab tags creation allows to prepare release description"
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -24,8 +24,4 @@ Gem::Specification.new do |spec|
   end
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
-
-  # spec.add_dependency "rails", "~> 5.2.2", ">= 5.2.2.1"
-
-  # spec.add_development_dependency "sqlite3"
 end
