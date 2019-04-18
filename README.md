@@ -19,33 +19,7 @@ $ gem install mls_ruby_automated_gitlab_tags
 ```
 
 ## Usage
-
-It's supposed that your project has `.gitlab-ci.yml` configuration file.
-
-We prefer to use separate `git_jobs` state. See an example below:
-
-```yml
-stages:
-  - test
-  - deploy
-  - git_jobs
-```
-
-The task example:
-
-```yml
-git_work__create_tag:
-  type: git_jobs
-  tags:
-    - shell-ruby
-  script:
-    - bundle exec rake mls_ruby_automated_gitlab_tags:tag_revision PRIVATE_TOKEN=$GITLAB__PRIVATE_TOKEN
-  only:
-    refs:
-      - production
-  allow_failure: true
-  when: always # or manual
-```
+Find out more [here][usage]
 
 ## Contributing
 
@@ -57,3 +31,5 @@ git_work__create_tag:
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+[usage]: ./guides/USAGE.md
