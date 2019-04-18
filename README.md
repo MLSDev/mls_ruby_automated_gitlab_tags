@@ -1,8 +1,5 @@
 # MlsRubyAutomatedGitlabTags
-Short description and motivation.
-
-## Usage
-How to use my plugin.
+Tool that allows quickly prepare tag message that is based on commit messages.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -19,6 +16,9 @@ $ bundle
 Or install it yourself as:
 ```bash
 $ gem install mls_ruby_automated_gitlab_tags
+
+## Usage
+How to use my plugin.
 ```
 
 ## Contributing
