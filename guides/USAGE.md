@@ -37,17 +37,17 @@ git_work__create_tag:
   when: always # or manual
 ```
 
+![PersonalAccessKey][personal_access_tokens]
+
 Or configure it as You even can imagine, just dont forget about `PRIVATE_TOKEN`.
 
 How to retrieve `Access Key` via `profile/personal_access_tokens` page in `GitLab`
-
-[personal_access_tokens]: ./personal_access_key_page.png "PersonalAccessKey"
 
 Or visit [the GitLab Documentation Page][gitlab_access_tokens_help] for more details
 
 Also, You can find more details about [GitLab Environment Variables here][gitlab_env_variables_help]
 
-![PersonalAccessKey][personal_access_tokens]
+[personal_access_tokens]: ./personal_access_key_page.png "PersonalAccessKey"
 
 [gitlab_access_tokens_help]: https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html "GitLab Access Tokens Documentation Page"
 
