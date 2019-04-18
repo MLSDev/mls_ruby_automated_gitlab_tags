@@ -47,17 +47,15 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       last_tag = parsed_response.first.try(:[], 'name')
       if last_tag
-        branch_for_deploy = 'production'
         puts "ⓂⓁⓈ [🛠] :: We found that last tag is #{ last_tag }"
       else
         last_tag ||= 'production' # in case if there was no tags created yet
-        branch_for_deploy = 'next_release'
         puts "ⓂⓁⓈ [🛠] :: We didnt found last tag in your git repository. So, its supposed that You have #{ last_tag } branch that will be used as last save point."
-        puts "ⓂⓁⓈ [🛠] :: Also, we will use #{ branch_for_deploy } branch that supposed to be latest branch that is gonna be deployed"
+        puts "ⓂⓁⓈ [🛠] :: Also, we will use #{ ENV['CI_COMMIT_REF_NAME'] } branch that supposed to be latest branch that is gonna be deployed"
       end
 
       compare_uri = URI.parse(
-        "#{ ENV['CI_API_V4_URL'] }/projects/#{ ENV['CI_PROJECT_ID'] }/repository/compare?from=#{ last_tag }&to=#{ branch_for_deploy }"
+        "#{ ENV['CI_API_V4_URL'] }/projects/#{ ENV['CI_PROJECT_ID'] }/repository/compare?from=#{ last_tag }&to=#{ ENV['CI_COMMIT_REF_NAME'] }"
       )
 
       http = Net::HTTP.new(compare_uri.host, compare_uri.port).tap { |http| http.use_ssl = true }
@@ -102,7 +100,7 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       body = {
         tag_name:            Time.now.strftime("%Y__%m__%d__%H_%M"),
-        ref:                 branch_for_deploy,
+        ref:                 ENV['CI_COMMIT_REF_NAME'],
         message:             'RELEASE 🎉🎉🎉',
         release_description: release_description
       }
