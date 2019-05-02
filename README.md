@@ -36,4 +36,4 @@ Find out more [here][usage]
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 [usage]: ./guides/USAGE.md
-[latest_version]: ./lib/mls_ruby_automated_gitlab_tags/version.rb
+[latest_version]: ./lib/mls_ruby_automated_gitlab_tags/version.rb#L2
