@@ -113,15 +113,15 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       case response
       when Net::HTTPSuccess
-        puts 'ⓂⓁⓈ [🛠] :: [✅] Create tag'
+        puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [✅] Create tag'
       when Net::HTTPUnauthorized
-        puts 'ⓂⓁⓈ [🛠] :: [🚨] Net::HTTPUnauthorized - have You missed PRIVATE_TOKEN configuration?'
+        puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [🚨] Net::HTTPUnauthorized - have You missed PRIVATE_TOKEN configuration?'
         exit 1
       when Net::HTTPServerError
-        puts 'ⓂⓁⓈ [🛠] :: [🚨] Net::HTTPServerError'
+        puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [🚨] Net::HTTPServerError'
         exit 1
       else
-        puts "ⓂⓁⓈ [🛠] :: [🚨] #{ response }"
+        puts "ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [🚨] #{ response }"
         exit 1
       end
     rescue => e
