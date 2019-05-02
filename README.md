@@ -1,6 +1,9 @@
 # MlsRubyAutomatedGitlabTags
 Tool that allows quickly prepare tag message that is based on commit messages.
 
+## Version
+Find out [here][latest_version]
+
 ## Installation
 Add this line to your application's Gemfile:
 
@@ -33,3 +36,4 @@ Find out more [here][usage]
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 [usage]: ./guides/USAGE.md
+[latest_version]: ./lib/mls_ruby_automated_gitlab_tags/version.rb
