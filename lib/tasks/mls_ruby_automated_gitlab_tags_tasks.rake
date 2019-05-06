@@ -11,7 +11,7 @@ namespace :mls_ruby_automated_gitlab_tags do
     require 'json'
 
     begin
-      puts 'ⓂⓁⓈ [🛠] :: [ℹ️] Getting last tag'
+      puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [ℹ️] Getting last tag'
 
       tags_uri = URI.parse(
         "#{ ENV['CI_API_V4_URL'] }/projects/#{ ENV['CI_PROJECT_ID'] }/repository/tags"
@@ -31,15 +31,15 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       case response
       when Net::HTTPSuccess
-        puts 'ⓂⓁⓈ [🛠] :: [✅] Tags'
+        puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [✅] Tags'
       when Net::HTTPUnauthorized
-        puts 'ⓂⓁⓈ [🛠] :: [🚨] Net::HTTPUnauthorized - have You missed PRIVATE_TOKEN configuration?'
+        puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [🚨] Net::HTTPUnauthorized - have You missed PRIVATE_TOKEN configuration?'
         exit 1
       when Net::HTTPServerError
-        puts 'ⓂⓁⓈ [🛠] :: [🚨] Net::HTTPServerError'
+        puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [🚨] Net::HTTPServerError'
         exit 1
       else
-        puts "ⓂⓁⓈ [🛠] :: [🚨] #{ response }"
+        puts "ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [🚨] #{ response }"
         exit 1
       end
 
@@ -47,11 +47,11 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       last_tag = parsed_response.first.try(:[], 'name')
       if last_tag
-        puts "ⓂⓁⓈ [🛠] :: [ℹ️] We found that last tag is #{ last_tag }"
+        puts "ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [ℹ️] We found that last tag is #{ last_tag }"
       else
         last_tag ||= 'production' # in case if there was no tags created yet
-        puts "ⓂⓁⓈ [🛠] :: [ℹ️] We didnt found last tag in your git repository. So, its supposed that You have #{ last_tag } branch that will be used as last save point."
-        puts "ⓂⓁⓈ [🛠] :: [ℹ️] Also, we will use #{ ENV['CI_COMMIT_REF_NAME'] } branch that supposed to be latest branch that is gonna be deployed"
+        puts "ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [ℹ️] We didnt found last tag in your git repository. So, its supposed that You have #{ last_tag } branch that will be used as last save point."
+        puts "ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [ℹ️] Also, we will use #{ ENV['CI_COMMIT_REF_NAME'] } branch that supposed to be latest branch that is gonna be deployed"
       end
 
       compare_uri = URI.parse(
@@ -65,15 +65,15 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       case response
       when Net::HTTPSuccess
-        puts 'ⓂⓁⓈ [🛠] :: [✅] Compare'
+        puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [✅] Compare'
       when Net::HTTPUnauthorized
-        puts 'ⓂⓁⓈ [🛠] :: [🚨] Net::HTTPUnauthorized - have You missed PRIVATE_TOKEN configuration?'
+        puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [🚨] Net::HTTPUnauthorized - have You missed PRIVATE_TOKEN configuration?'
         exit 1
       when Net::HTTPServerError
-        puts 'ⓂⓁⓈ [🛠] :: [🚨] Net::HTTPServerError'
+        puts 'ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [🚨] Net::HTTPServerError'
         exit 1
       else
-        puts "ⓂⓁⓈ [🛠] :: [🚨] #{ response }"
+        puts "ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [🚨] #{ response }"
         exit 1
       end
 
@@ -86,7 +86,7 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       release_description = messages.join
 
-      puts "ⓂⓁⓈ [🛠] :: [ℹ️] Release notes length is #{ release_description.size }"
+      puts "ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [ℹ️] Release notes length is #{ release_description.size }"
 
       uri = URI.parse(
         "#{ ENV['CI_API_V4_URL'] }/projects/#{ ENV['CI_PROJECT_ID'] }/repository/tags"
