@@ -1,5 +1,5 @@
-require "mls_ruby_automated_gitlab_tags/engine"
+require "mls_ruby_automated_gitlab_tags/version"
+require "mls_ruby_automated_gitlab_tags/railtie"
 
 module MlsRubyAutomatedGitlabTags
-  # Your code goes here...
 end
