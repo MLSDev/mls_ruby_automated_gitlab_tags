@@ -98,8 +98,13 @@ namespace :mls_ruby_automated_gitlab_tags do
         'PRIVATE-TOKEN': ENV['PRIVATE_TOKEN']
       }
 
+      #
+      # release/YEAR/MONTH/day__hour_minute
+      #
+      tag_name = "release/#{ Time.now.strftime('%Y') }/#{ Time.now.strftime('%m') }/#{ Time.now.strftime('%d__%H_%M') }"
+
       body = {
-        tag_name:            Time.now.strftime("%Y__%m__%d__%H_%M"),
+        tag_name:            tag_name,
         ref:                 ENV['CI_COMMIT_REF_NAME'],
         message:             'RELEASE 🎉🎉🎉',
         release_description: release_description
