@@ -84,6 +84,9 @@ namespace :mls_ruby_automated_gitlab_tags do
         "1. [[VIEW]](#{ ENV['CI_PROJECT_URL'] }/commit/#{ commit['id'] }) #{ commit['title'] } (#{ commit['author_name'] })\n"
       end
 
+      #
+      # NOTE: since gitlab v14.0.6 `release_description` is renamed to `description`
+      #
       release_description = messages.join
 
       puts "ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [ℹ️] Release notes length is #{ release_description.size }"
@@ -104,10 +107,10 @@ namespace :mls_ruby_automated_gitlab_tags do
       tag_name = "release/#{ Time.now.strftime('%Y') }/#{ Time.now.strftime('%m') }/#{ Time.now.strftime('%d__%H_%M') }"
 
       body = {
-        tag_name:            tag_name,
-        ref:                 ENV['CI_COMMIT_REF_NAME'],
-        message:             'RELEASE 🎉🎉🎉',
-        release_description: release_description
+        tag_name:    tag_name,
+        ref:         ENV['CI_COMMIT_REF_NAME'],
+        message:     'RELEASE 🎉🎉🎉',
+        description: release_description,
       }
 
       http = Net::HTTP.new(uri.host, uri.port)
