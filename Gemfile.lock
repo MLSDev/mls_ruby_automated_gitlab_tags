@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mls_ruby_automated_gitlab_tags (0.1.0)
+    mls_ruby_automated_gitlab_tags (1.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -14,4 +14,4 @@ DEPENDENCIES
   mls_ruby_automated_gitlab_tags!
 
 BUNDLED WITH
-   2.0.1
+   2.2.3
