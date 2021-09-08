@@ -108,7 +108,7 @@ namespace :mls_ruby_automated_gitlab_tags do
 
       body = {
         tag_name:    tag_name,
-        ref:         ENV.fetch('CI_COMMIT_REF_NAME'),
+        ref:         ENV['CI_COMMIT_REF_NAME'],
         message:     'RELEASE 🎉🎉🎉',
         description: release_description,
       }
