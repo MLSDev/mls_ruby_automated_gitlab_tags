@@ -92,7 +92,7 @@ namespace :mls_ruby_automated_gitlab_tags do
       puts "ⓂⓁⓈ-ⓉⒺⒸ [🛠] :: [ℹ️] Release notes length is #{ release_description.size }"
 
       uri = URI.parse(
-        "#{ ENV['CI_API_V4_URL'] }/projects/#{ ENV['CI_PROJECT_ID'] }/repository/tags"
+        "#{ ENV['CI_API_V4_URL'] }/projects/#{ ENV['CI_PROJECT_ID'] }/releases"
       )
 
       headers = {
